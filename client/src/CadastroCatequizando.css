@@ -1,0 +1,113 @@
+.cadastrar {
+  min-height: 100vh;
+  position: relative;
+  background-color: #d6ffff;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.header {
+  padding: 15px;
+  text-align: center;
+  background-color: #6B8080;
+}
+
+.column {
+  padding: 10px;
+}
+
+.column.side {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.column.middle {
+  background-color: #f0f8ff;
+  -webkit-flex: 2;
+  -ms-flex: 2;
+  flex: 2;
+}
+
+.row {
+  display: -webkit-flex;
+  display: flex;
+}
+
+Container {
+  display: flex;
+}
+
+.form {
+  background-color: white;
+  display: flex;
+  padding: 2rem;
+  /*width: 100%;
+    /*box-shadow: 5px 5px 5px rgba(0,0,0,0,0.2);
+    display: flex;
+   /* flex-direction: column;width: 100%;*/
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-control {
+  position: relative;
+  display: block;
+  padding-left: 1.5rem;
+  box-sizing: border-box;
+}
+
+.btnCadastrar {
+  display: flex;
+  justify-content: center;
+  margin: 25px;
+}
+
+
+svg {
+  color: white;
+  width: 25px;
+  height: 25px;
+  float: right;
+  margin: 8px;
+}
+
+ul.navBar {
+  top: 55px;
+  left: 38vw;
+  padding: 0;
+  margin: 0;
+  background: none;
+  font: 14px/21px Arial, Helvetica, sans-serif;
+}
+
+/*antes das alterações
+  const consultaCatequizandos = "http://localhost:4003/";
+  const getCatequizando = () => {
+    Axios.get(consultaCatequizandos).then((response) => {
+      setCatequizandosList(response.data);
+    });
+  };*/
+
+.dataNasc {
+  display: inline-block;
+  max-height: min-content;
+  column-count: 3;
+}
+
+/*@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;1,500&display=swap');*/
+h3 {
+
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  color: #211703;
+}
+
+
+Table {
+  margin: 1rem 0;
+}
+
+.mb-3 {
+  text-align: start;
+}

@@ -1,0 +1,133 @@
+//  Prisma Schema
+//  https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+//Iniciando o modelo do banco
+
+model Turma {
+  idTurma          Int                @id @default(autoincrement())
+  dataInicio       DateTime
+  dataFim          DateTime
+  CatequeseAdultos CatequeseAdultos[]
+  Sacramento       Sacramento[]
+
+  @@map("turmas")
+}
+
+model CatequeseAdultos {
+  idCatequeseAdultos Int   @id @default(autoincrement())
+  turma              Turma @relation(fields: [idTurma], references: [idTurma])
+  idTurma            Int
+
+  @@map("catequeseAdultos")
+}
+
+model Pessoa {
+  id                    Int                @id @default(autoincrement())
+  nome                  String
+  cpf                   Boolean
+  rg                    Boolean
+  comprovanteResidencia Boolean
+  casado                Boolean
+  dataNasc              DateTime
+  User                  User[]
+  Sacramento            Sacramento[]
+  PadrinhoMadrinha      PadrinhoMadrinha[]
+
+  @@map("pessoas")
+}
+
+model User {
+  pessoa    Pessoa @relation(fields: [idPessoa], references: [id])
+  idPessoa  Int    @id
+  email     String @unique
+  password  String
+  permissao Int
+
+  @@map("users")
+}
+
+model Sacramento {
+  idSacramento       Int                  @id @default(autoincrement())
+  pessoa             Pessoa               @relation(fields: [idPessoa], references: [id])
+  idPessoa           Int
+  turma              Turma                @relation(fields: [idTurma], references: [idTurma])
+  idTurma            Int
+  dataInicioCiclo    DateTime
+  dataFimCiclo       DateTime
+  dataMissa          DateTime
+  Batismo            Batismo[]
+  Admissao           Admissao[]
+  Crisma             Crisma[]
+  EucaristiaPrimeira EucaristiaPrimeira[]
+
+  @@map("sacramentos")
+}
+
+model PadrinhoMadrinha {
+  pessoa                        Pessoa    @relation(fields: [idPessoa], references: [id])
+  idPessoa                      Int       @id
+  comprovanteBatismoAdmissao    Boolean
+  comprovantePrimeiraEucaristia Boolean
+  comprovanteCrisma             Boolean
+  comprovanteCasamento          Boolean
+  Batismo                       Batismo[]
+  Crisma                        Crisma[]
+
+  @@map("padrinhosMadrinhas")
+}
+
+model Batismo {
+  sacramento         Sacramento       @relation(fields: [idSacramento], references: [idSacramento])
+  idSacramento       Int              @id
+  padrinhoMadrinha   PadrinhoMadrinha @relation(fields: [idPadrinhoMadrinha], references: [idPessoa])
+  idPadrinhoMadrinha Int
+
+  @@map("batismos")
+}
+
+model Admissao {
+  sacramento     Sacramento @relation(fields: [idSacramento], references: [idSacramento])
+  idSacramento   Int        @id
+  religiaoOrigem String
+  dataOrigem     String
+
+  @@map("admissoes")
+}
+
+model EucaristiaPrimeira {
+  sacramento                 Sacramento @relation(fields: [idSacramento], references: [idSacramento])
+  idSacramento               Int        @id
+  comprovanteBatismoAdmissao Boolean
+  comprovanteCasamento       Boolean
+  Eucaristia                 String
+
+  @@map("eucaristiaPrimeira")
+}
+
+model Crisma {
+  sacramento                 Sacramento       @relation(fields: [idSacramento], references: [idSacramento])
+  idSacramento               Int              @id
+  comprovanteBatismoAdmissao Boolean
+  comprovanteCasamento       Boolean
+  padrinhoMadrinha           PadrinhoMadrinha @relation(fields: [idPadrinhoMadrinha], references: [idPessoa])
+  idPadrinhoMadrinha         Int
+
+  @@map("crismas")
+}
+
+//model Turma {
+//id            Int            @id @default(autoincrement())
+//nome          String         @unique
+//catequizandos Catequizando[]
+
+//@@map("turma")
+//}*/
